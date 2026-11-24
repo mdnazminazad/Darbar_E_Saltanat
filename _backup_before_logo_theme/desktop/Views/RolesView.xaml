@@ -1,0 +1,98 @@
+<UserControl x:Class="DarbarESaltanat.Desktop.Views.RolesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:DarbarESaltanat.Desktop.ViewModels"
+             d:DataContext="{d:DesignInstance vm:RolesViewModel}"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <!-- Header bar -->
+            <Border DockPanel.Dock="Top" Background="White" CornerRadius="12" Padding="20,16" Margin="0,0,0,16" BorderBrush="#E2E8F0" BorderThickness="1">
+                <DockPanel LastChildFill="False">
+                    <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                        <TextBlock Text="Roles &amp; Permissions" Style="{StaticResource Heading}"/>
+                        <TextBlock Text="Role-Based Access Control (RBAC) configured for local desktop operations and cloud sync"
+                                   Foreground="{StaticResource MutedTextBrush}" FontSize="13" Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <Button DockPanel.Dock="Right" Content="↻ Refresh" Style="{StaticResource NavButton}" Command="{Binding RefreshCommand}" MinHeight="42" Padding="14,0"/>
+                </DockPanel>
+            </Border>
+
+            <!-- Main 2-column layout -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="360"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Column: Roles List -->
+                <Border Grid.Column="0" Background="White" CornerRadius="12" Padding="16" Margin="0,0,16,0" BorderBrush="#E2E8F0" BorderThickness="1">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Text="System &amp; Custom Roles" FontWeight="Bold" FontSize="15" Margin="0,0,0,12"/>
+                        <ListBox ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}" BorderThickness="0" Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="8" Padding="12,10" Margin="0,0,0,6" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1">
+                                        <DockPanel LastChildFill="True">
+                                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Border CornerRadius="10" Padding="8,3" Background="#FEF3C7" Margin="0,0,6,0"
+                                                        Visibility="{Binding IsSystem, Converter={StaticResource BoolToVis}}">
+                                                    <TextBlock Text="system" Foreground="#92400E" FontSize="11" FontWeight="Bold"/>
+                                                </Border>
+                                                <Border CornerRadius="10" Padding="8,3" Background="#E0E7FF">
+                                                    <TextBlock Text="{Binding PermissionCount, StringFormat='{}{0} perms'}" Foreground="#3730A3" FontSize="11" FontWeight="Bold"/>
+                                                </Border>
+                                            </StackPanel>
+
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="14"/>
+                                                <TextBlock Text="{Binding Code}" Foreground="{StaticResource MutedTextBrush}" FontSize="11"/>
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
+
+                <!-- Right Column: Permission Groups -->
+                <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="20" BorderBrush="#E2E8F0" BorderThickness="1">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+                            <TextBlock Text="{Binding SelectedRole.Name, StringFormat='Permissions for {0}'}" Style="{StaticResource Heading}"/>
+                            <TextBlock Text="{Binding SelectedRole.Description}" Foreground="{StaticResource MutedTextBrush}" FontSize="13" Margin="0,4,0,0"/>
+                        </StackPanel>
+
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding PermissionGroups}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="8" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" Padding="16" Margin="0,0,0,12">
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Module}" FontWeight="Bold" Foreground="{StaticResource NavyBrush}" FontSize="13" Margin="0,0,0,8"/>
+                                                <ItemsControl ItemsSource="{Binding Permissions}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal" Margin="0,4">
+                                                                <TextBlock Text="✔ " Foreground="{StaticResource SuccessBrush}" FontWeight="Bold"/>
+                                                                <TextBlock Text="{Binding}" FontSize="13"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Border>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>

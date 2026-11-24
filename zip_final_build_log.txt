@@ -1,0 +1,12 @@
+Build started Tue 11/24/2026 14:15:54.22 
+10.0.401
+  Determining projects to restore...
+  Restored C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Domain\DarbarESaltanat.Domain.csproj (in 4.64 sec).
+  Restored C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Application\DarbarESaltanat.Application.csproj (in 4.67 sec).
+  Restored C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Infrastructure\DarbarESaltanat.Infrastructure.csproj (in 4.7 sec).
+  1 of 4 projects are up-to-date for restore.
+  DarbarESaltanat.Domain -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Domain\bin\Release\net8.0\DarbarESaltanat.Domain.dll
+  DarbarESaltanat.Application -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Application\bin\Release\net8.0\DarbarESaltanat.Application.dll
+  DarbarESaltanat.Infrastructure -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Infrastructure\bin\Release\net8.0\DarbarESaltanat.Infrastructure.dll
+  DarbarESaltanat.Desktop -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Desktop\bin\Release\net8.0-windows\win-x64\DarbarESaltanat.dll
+  DarbarESaltanat.Desktop -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\zip_final_build\

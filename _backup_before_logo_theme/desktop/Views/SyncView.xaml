@@ -1,0 +1,72 @@
+<UserControl x:Class="DarbarESaltanat.Desktop.Views.SyncView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="Retry failed" Style="{StaticResource PrimaryButton}" Margin="0,0,8,0" Command="{Binding RetryFailedCommand}"/>
+                <Button Content="⟳ Sync now" Style="{StaticResource GoldButton}" Command="{Binding SyncNowCommand}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Sync" Style="{StaticResource Heading}"/>
+                <TextBlock Text="Everything is saved on this computer first; changes upload automatically every 30 seconds when online." Foreground="{StaticResource MutedTextBrush}"/>
+            </StackPanel>
+        </DockPanel>
+        <Border DockPanel.Dock="Top" Background="#E8F5EC" CornerRadius="8" Padding="10" Margin="0,0,0,8" Visibility="{Binding Message, Converter={StaticResource NullToVis}}">
+            <TextBlock Text="{Binding Message}"/>
+        </Border>
+        <UniformGrid DockPanel.Dock="Top" Columns="4" Margin="-6,0,-6,8">
+            <Border Style="{StaticResource Card}" Margin="6" BorderBrush="{StaticResource GoldBrush}" BorderThickness="4,0,0,0">
+                <StackPanel><TextBlock Text="STATUS" FontSize="12" Foreground="{StaticResource MutedTextBrush}"/>
+                    <TextBlock Text="{Binding Monitor.Health}" FontSize="22" FontWeight="Bold" Foreground="{StaticResource NavyBrush}"/>
+                    <TextBlock Text="{Binding Monitor.Label}" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource MutedTextBrush}"/></StackPanel>
+            </Border>
+            <Border Style="{StaticResource Card}" Margin="6" BorderBrush="{StaticResource NavyBrush}" BorderThickness="4,0,0,0">
+                <StackPanel><TextBlock Text="PENDING" FontSize="12" Foreground="{StaticResource MutedTextBrush}"/>
+                    <TextBlock Text="{Binding Monitor.PendingCount}" FontSize="22" FontWeight="Bold" Foreground="{StaticResource NavyBrush}"/></StackPanel>
+            </Border>
+            <Border Style="{StaticResource Card}" Margin="6" BorderBrush="{StaticResource MaroonBrush}" BorderThickness="4,0,0,0">
+                <StackPanel><TextBlock Text="FAILED / CONFLICTS" FontSize="12" Foreground="{StaticResource MutedTextBrush}"/>
+                    <TextBlock FontSize="22" FontWeight="Bold" Foreground="{StaticResource MaroonBrush}">
+                        <Run Text="{Binding Monitor.FailedCount, Mode=OneWay}"/><Run Text=" / "/><Run Text="{Binding Monitor.ConflictCount, Mode=OneWay}"/>
+                    </TextBlock></StackPanel>
+            </Border>
+            <Border Style="{StaticResource Card}" Margin="6">
+                <StackPanel><TextBlock Text="LAST SYNC" FontSize="12" Foreground="{StaticResource MutedTextBrush}"/>
+                    <TextBlock Text="{Binding LastSuccess}" FontWeight="Bold"/>
+                    <TextBlock FontSize="12" Foreground="{StaticResource MutedTextBrush}"><Run Text="Last attempt "/><Run Text="{Binding LastAttempt, Mode=OneWay}"/></TextBlock>
+                    <TextBlock Text="{Binding LastError}" FontSize="12" Foreground="{StaticResource MaroonBrush}" TextWrapping="Wrap"/></StackPanel>
+            </Border>
+        </UniformGrid>
+        <Grid>
+            <Grid.RowDefinitions><RowDefinition/><RowDefinition Height="12"/><RowDefinition/></Grid.RowDefinitions>
+            <Border Style="{StaticResource Card}" Padding="10">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Changes that need attention" FontWeight="Bold" Margin="0,0,0,6"/>
+                    <DataGrid ItemsSource="{Binding Problems}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowHeight="32">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Change" Binding="{Binding What}" Width="200"/>
+                            <DataGridTextColumn Header="Record" Binding="{Binding Record}" Width="90"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90"/>
+                            <DataGridTextColumn Header="Reason" Binding="{Binding Error}" Width="*"/>
+                            <DataGridTextColumn Header="Next" Binding="{Binding Retry}" Width="190"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+            <Border Grid.Row="2" Style="{StaticResource Card}" Padding="10">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Sync log" FontWeight="Bold" Margin="0,0,0,6"/>
+                    <DataGrid ItemsSource="{Binding Log}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowHeight="30">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="160"/>
+                            <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="60"/>
+                            <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
+                            <DataGridTextColumn Header="Details" Binding="{Binding Details}" Width="2*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

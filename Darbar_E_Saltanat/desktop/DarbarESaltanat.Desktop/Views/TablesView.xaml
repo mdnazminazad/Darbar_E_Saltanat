@@ -1,0 +1,60 @@
+<UserControl x:Class="DarbarESaltanat.Desktop.Views.TablesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="↻ Refresh" Style="{StaticResource PrimaryButton}" Margin="0,0,8,0" Command="{Binding RefreshCommand}"/>
+                <Button Content="+ Add table" Style="{StaticResource GoldButton}" Command="{Binding AddTableCommand}" Visibility="{Binding CanManage, Converter={StaticResource BoolToVis}}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Tables" Style="{StaticResource Heading}"/>
+                <TextBlock Text="{Binding Summary}" Foreground="{DynamicResource MutedTextBrush}"/>
+            </StackPanel>
+        </DockPanel>
+        <Border DockPanel.Dock="Top" Background="{DynamicResource ErrorBannerBrush}" CornerRadius="8" Padding="10" Margin="0,0,0,8" Visibility="{Binding Message, Converter={StaticResource NullToVis}}">
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
+        </Border>
+        <TextBlock DockPanel.Dock="Bottom" Margin="0,8,0,0" Foreground="{DynamicResource MutedTextBrush}"
+                   Text="Tap a table to open its order or seat new guests. Use “Status” to reserve a table or mark it clean, “Edit” to rename it or change its seats and section, and “Delete” to remove a table that is not in use. Green = available · Blue = reserved · Red = occupied · Gold = bill printed · Grey = cleaning"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Cards}">
+                <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="190" Margin="0,0,12,12" CornerRadius="12" Background="{DynamicResource CardBrush}" BorderThickness="0,6,0,0"
+                                BorderBrush="{Binding Status, Converter={StaticResource TableStatusBrush}}">
+                            <StackPanel>
+                                <Button Style="{StaticResource BaseButton}" Background="Transparent" HorizontalContentAlignment="Stretch" Padding="14,10"
+                                        Command="{Binding DataContext.OpenCommand, ElementName=Root}" CommandParameter="{Binding}">
+                                    <StackPanel>
+                                        <DockPanel>
+                                            <Border DockPanel.Dock="Right" CornerRadius="10" Padding="8,2" Background="{Binding Status, Converter={StaticResource TableStatusBrush}}">
+                                                <TextBlock Text="{Binding StatusLabel}" Foreground="White" FontSize="11"/>
+                                            </Border>
+                                            <TextBlock Text="{Binding Name}" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource HeadingBrush}"/>
+                                        </DockPanel>
+                                        <TextBlock Text="{Binding Seats}" Foreground="{DynamicResource MutedTextBrush}" FontSize="12"/>
+                                        <TextBlock Text="{Binding OrderLine}" FontWeight="SemiBold" Margin="0,6,0,0" TextWrapping="Wrap" Visibility="{Binding OrderLine, Converter={StaticResource NullToVis}}"/>
+                                        <TextBlock Text="{Binding Elapsed}" FontSize="12" Foreground="{DynamicResource DangerTextBrush}" Visibility="{Binding Elapsed, Converter={StaticResource NullToVis}}"/>
+                                    </StackPanel>
+                                </Button>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="Status…" Style="{StaticResource NavButton}" Foreground="{DynamicResource AccentTextBrush}" MinHeight="32" Padding="8,4" FontSize="13"
+                                            Command="{Binding DataContext.SetStatusCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                    <Button Content="Edit" Style="{StaticResource NavButton}" Foreground="{DynamicResource AccentTextBrush}" MinHeight="32" Padding="8,4" FontSize="13"
+                                            Visibility="{Binding DataContext.CanManage, ElementName=Root, Converter={StaticResource BoolToVis}}"
+                                            Command="{Binding DataContext.EditTableCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                    <Button Content="Delete" Style="{StaticResource NavButton}" Foreground="{DynamicResource DangerTextBrush}" MinHeight="32" Padding="8,4" FontSize="13"
+                                            Visibility="{Binding DataContext.CanManage, ElementName=Root, Converter={StaticResource BoolToVis}}"
+                                            Command="{Binding DataContext.DeleteTableCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

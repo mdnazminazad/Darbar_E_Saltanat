@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Darbar-E-Saltanat | দরবার-এ-সালতানাত — Admin</title>
+    <meta name="description" content="Darbar-E-Saltanat (দরবার-এ-সালতানাত) restaurant management portal" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#111831" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Apply the saved light/dark choice before first paint (avoids a white flash in dark mode). -->
+    <script>
+      try {
+        if (localStorage.getItem('darbar.theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = 'dark';
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b1020');
+        }
+      } catch (e) { /* storage unavailable: stay light */ }
+    </script>
+  </head>
+  <body class="bg-slate-100">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,2995 @@
+{
+  "branches": {
+    "table": "branches",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": false,
+    "fks": [],
+    "columns": [
+      {
+        "name": "code",
+        "type": "s20",
+        "nullable": false,
+        "unique": true
+      },
+      {
+        "name": "name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "address",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "phone",
+        "type": "s30",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "email",
+        "type": "s150",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "timezone",
+        "type": "s40",
+        "nullable": false,
+        "unique": false,
+        "default": "Asia/Dhaka"
+      },
+      {
+        "name": "currency",
+        "type": "s10",
+        "nullable": false,
+        "unique": false,
+        "default": "BDT"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "roles": {
+    "table": "roles",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "code",
+        "type": "s40",
+        "nullable": false,
+        "unique": true
+      },
+      {
+        "name": "name",
+        "type": "s80",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "description",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "is_system",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      }
+    ]
+  },
+  "permissions": {
+    "table": "permissions",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "code",
+        "type": "s80",
+        "nullable": false,
+        "unique": true
+      },
+      {
+        "name": "module",
+        "type": "s40",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "description",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "role_permissions": {
+    "table": "role_permissions",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "role",
+        "column": "role_id",
+        "uuid_field": "role_uuid",
+        "ref": "roles",
+        "nullable": false
+      },
+      {
+        "name": "permission",
+        "column": "permission_id",
+        "uuid_field": "permission_uuid",
+        "ref": "permissions",
+        "nullable": false
+      }
+    ],
+    "columns": []
+  },
+  "users": {
+    "table": "users",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "username",
+        "type": "s60",
+        "nullable": false,
+        "unique": true
+      },
+      {
+        "name": "email",
+        "type": "s150",
+        "nullable": true,
+        "unique": true
+      },
+      {
+        "name": "password_hash",
+        "type": "s255",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "pin_hash",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "full_name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "phone",
+        "type": "s30",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      },
+      {
+        "name": "must_change_password",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "failed_login_count",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "locked_until",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "last_login_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "user_roles": {
+    "table": "user_roles",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "user",
+        "column": "user_id",
+        "uuid_field": "user_uuid",
+        "ref": "users",
+        "nullable": false
+      },
+      {
+        "name": "role",
+        "column": "role_id",
+        "uuid_field": "role_uuid",
+        "ref": "roles",
+        "nullable": false
+      }
+    ],
+    "columns": []
+  },
+  "customers": {
+    "table": "customers",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "phone",
+        "type": "s30",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "email",
+        "type": "s150",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "password_hash",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "address",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "loyalty_points",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "credit_balance",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "credit_limit",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "customer_addresses": {
+    "table": "customer_addresses",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "customer",
+        "column": "customer_id",
+        "uuid_field": "customer_uuid",
+        "ref": "customers",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "label",
+        "type": "s60",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "address",
+        "type": "text",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "area",
+        "type": "s100",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "is_default",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      }
+    ]
+  },
+  "suppliers": {
+    "table": "suppliers",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "contact_person",
+        "type": "s120",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "phone",
+        "type": "s30",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "email",
+        "type": "s150",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "address",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "opening_balance",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "categories": {
+    "table": "categories",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "parent",
+        "column": "parent_id",
+        "uuid_field": "parent_uuid",
+        "ref": "categories",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s120",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "image_url",
+        "type": "s500",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "kitchen_station",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "sort_order",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "menu_items": {
+    "table": "menu_items",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "category",
+        "column": "category_id",
+        "uuid_field": "category_uuid",
+        "ref": "categories",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "name_bn",
+        "type": "s150",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "sku",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "barcode",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "image_url",
+        "type": "s500",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "cost_price",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "selling_price",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "tax_rate",
+        "type": "pct",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "prep_time_minutes",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "15"
+      },
+      {
+        "name": "sort_order",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_available",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "item_variants": {
+    "table": "item_variants",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "menu_item",
+        "column": "menu_item_id",
+        "uuid_field": "menu_item_uuid",
+        "ref": "menu_items",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s60",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "sku",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "price",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "cost_price",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_default",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "item_addons": {
+    "table": "item_addons",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s100",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "group_name",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "price",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "item_addon_mappings": {
+    "table": "item_addon_mappings",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "menu_item",
+        "column": "menu_item_id",
+        "uuid_field": "menu_item_uuid",
+        "ref": "menu_items",
+        "nullable": false
+      },
+      {
+        "name": "addon",
+        "column": "addon_id",
+        "uuid_field": "addon_uuid",
+        "ref": "item_addons",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "max_qty",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "ingredients": {
+    "table": "ingredients",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "supplier",
+        "column": "supplier_id",
+        "uuid_field": "supplier_uuid",
+        "ref": "suppliers",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "sku",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "unit",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "KG",
+          "G",
+          "L",
+          "ML",
+          "PCS",
+          "PACKET"
+        ]
+      },
+      {
+        "name": "current_stock",
+        "type": "qty",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "reorder_level",
+        "type": "qty",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "cost_per_unit",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "recipes": {
+    "table": "recipes",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "menu_item",
+        "column": "menu_item_id",
+        "uuid_field": "menu_item_uuid",
+        "ref": "menu_items",
+        "nullable": false
+      },
+      {
+        "name": "variant",
+        "column": "variant_id",
+        "uuid_field": "variant_uuid",
+        "ref": "item_variants",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "yield_qty",
+        "type": "qty",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "recipe_ingredients": {
+    "table": "recipe_ingredients",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "recipe",
+        "column": "recipe_id",
+        "uuid_field": "recipe_uuid",
+        "ref": "recipes",
+        "nullable": false
+      },
+      {
+        "name": "ingredient",
+        "column": "ingredient_id",
+        "uuid_field": "ingredient_uuid",
+        "ref": "ingredients",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "quantity",
+        "type": "qty",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "wastage_pct",
+        "type": "pct",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      }
+    ]
+  },
+  "stock_movements": {
+    "table": "stock_movements",
+    "global_scope": false,
+    "append_only": true,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "ingredient",
+        "column": "ingredient_id",
+        "uuid_field": "ingredient_uuid",
+        "ref": "ingredients",
+        "nullable": false
+      },
+      {
+        "name": "created_by",
+        "column": "created_by_id",
+        "uuid_field": "created_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "PURCHASE",
+          "SALE",
+          "WASTAGE",
+          "ADJUSTMENT",
+          "STOCK_IN",
+          "STOCK_OUT",
+          "RETURN"
+        ]
+      },
+      {
+        "name": "quantity",
+        "type": "qty",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "balance_after",
+        "type": "qty",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "unit_cost",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "reference_type",
+        "type": "s40",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "reference_uuid",
+        "type": "char36",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "reason",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "occurred_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "stock_adjustments": {
+    "table": "stock_adjustments",
+    "global_scope": false,
+    "append_only": true,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "ingredient",
+        "column": "ingredient_id",
+        "uuid_field": "ingredient_uuid",
+        "ref": "ingredients",
+        "nullable": false
+      },
+      {
+        "name": "adjusted_by",
+        "column": "adjusted_by_id",
+        "uuid_field": "adjusted_by_uuid",
+        "ref": "users",
+        "nullable": true
+      },
+      {
+        "name": "approved_by",
+        "column": "approved_by_id",
+        "uuid_field": "approved_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "system_qty",
+        "type": "qty",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "counted_qty",
+        "type": "qty",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "difference_qty",
+        "type": "qty",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "reason",
+        "type": "s255",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "adjusted_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "restaurant_tables": {
+    "table": "restaurant_tables",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s30",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "capacity",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "4"
+      },
+      {
+        "name": "section",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "AVAILABLE",
+          "RESERVED",
+          "OCCUPIED",
+          "BILLING",
+          "CLEANING"
+        ],
+        "default": "AVAILABLE"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "reservations": {
+    "table": "reservations",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "table",
+        "column": "table_id",
+        "uuid_field": "table_uuid",
+        "ref": "restaurant_tables",
+        "nullable": true
+      },
+      {
+        "name": "customer",
+        "column": "customer_id",
+        "uuid_field": "customer_uuid",
+        "ref": "customers",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "customer_name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "phone",
+        "type": "s30",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "party_size",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "2"
+      },
+      {
+        "name": "reserved_for",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "duration_minutes",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "90"
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "PENDING",
+          "CONFIRMED",
+          "SEATED",
+          "COMPLETED",
+          "CANCELLED",
+          "NO_SHOW"
+        ],
+        "default": "PENDING"
+      },
+      {
+        "name": "source",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "DESKTOP",
+          "WEB",
+          "PHONE"
+        ],
+        "default": "DESKTOP"
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "discounts": {
+    "table": "discounts",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s100",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "PERCENT",
+          "FIXED"
+        ]
+      },
+      {
+        "name": "value",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "min_order",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "max_discount",
+        "type": "money",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "requires_permission",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "coupons": {
+    "table": "coupons",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "code",
+        "type": "s40",
+        "nullable": false,
+        "unique": true
+      },
+      {
+        "name": "description",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "PERCENT",
+          "FIXED"
+        ]
+      },
+      {
+        "name": "value",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "min_order",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "max_discount",
+        "type": "money",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "usage_limit",
+        "type": "int",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "per_customer_limit",
+        "type": "int",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "used_count",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "starts_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "ends_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "cash_sessions": {
+    "table": "cash_sessions",
+    "global_scope": false,
+    "append_only": false,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "opened_by",
+        "column": "opened_by_id",
+        "uuid_field": "opened_by_uuid",
+        "ref": "users",
+        "nullable": false
+      },
+      {
+        "name": "closed_by",
+        "column": "closed_by_id",
+        "uuid_field": "closed_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "opened_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "closed_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "opening_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "expected_closing",
+        "type": "money",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "counted_closing",
+        "type": "money",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "difference",
+        "type": "money",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "OPEN",
+          "CLOSED"
+        ],
+        "default": "OPEN"
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "cash_movements": {
+    "table": "cash_movements",
+    "global_scope": false,
+    "append_only": true,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "cash_session",
+        "column": "cash_session_id",
+        "uuid_field": "cash_session_uuid",
+        "ref": "cash_sessions",
+        "nullable": false
+      },
+      {
+        "name": "created_by",
+        "column": "created_by_id",
+        "uuid_field": "created_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "CASH_IN",
+          "CASH_OUT"
+        ]
+      },
+      {
+        "name": "amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "reason",
+        "type": "s255",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "occurred_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "orders": {
+    "table": "orders",
+    "global_scope": false,
+    "append_only": false,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "table",
+        "column": "table_id",
+        "uuid_field": "table_uuid",
+        "ref": "restaurant_tables",
+        "nullable": true
+      },
+      {
+        "name": "customer",
+        "column": "customer_id",
+        "uuid_field": "customer_uuid",
+        "ref": "customers",
+        "nullable": true
+      },
+      {
+        "name": "waiter",
+        "column": "waiter_id",
+        "uuid_field": "waiter_uuid",
+        "ref": "users",
+        "nullable": true
+      },
+      {
+        "name": "cashier",
+        "column": "cashier_id",
+        "uuid_field": "cashier_uuid",
+        "ref": "users",
+        "nullable": true
+      },
+      {
+        "name": "coupon",
+        "column": "coupon_id",
+        "uuid_field": "coupon_uuid",
+        "ref": "coupons",
+        "nullable": true
+      },
+      {
+        "name": "parent_order",
+        "column": "parent_order_id",
+        "uuid_field": "parent_order_uuid",
+        "ref": "orders",
+        "nullable": true
+      },
+      {
+        "name": "voided_by",
+        "column": "voided_by_id",
+        "uuid_field": "voided_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "order_no",
+        "type": "s40",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "order_type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "DINE_IN",
+          "TAKEAWAY",
+          "DELIVERY"
+        ]
+      },
+      {
+        "name": "source",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "POS",
+          "WEB",
+          "PHONE"
+        ],
+        "default": "POS"
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "DRAFT",
+          "HELD",
+          "OPEN",
+          "IN_KITCHEN",
+          "READY",
+          "SERVED",
+          "BILLED",
+          "COMPLETED",
+          "VOIDED",
+          "CANCELLED"
+        ],
+        "default": "OPEN"
+      },
+      {
+        "name": "payment_status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "UNPAID",
+          "PARTIAL",
+          "PAID",
+          "REFUNDED",
+          "PARTIAL_REFUND"
+        ],
+        "default": "UNPAID"
+      },
+      {
+        "name": "guest_count",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      },
+      {
+        "name": "subtotal",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "discount_type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "NONE",
+          "PERCENT",
+          "FIXED",
+          "COUPON"
+        ],
+        "default": "NONE"
+      },
+      {
+        "name": "discount_value",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "discount_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "service_charge_rate",
+        "type": "pct",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "service_charge_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "vat_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "delivery_charge",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "round_off",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "total",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "paid_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "due_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "delivery_address",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "delivery_phone",
+        "type": "s30",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "void_reason",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "voided_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "order_date",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "completed_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "order_items": {
+    "table": "order_items",
+    "global_scope": false,
+    "append_only": false,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "order",
+        "column": "order_id",
+        "uuid_field": "order_uuid",
+        "ref": "orders",
+        "nullable": false
+      },
+      {
+        "name": "menu_item",
+        "column": "menu_item_id",
+        "uuid_field": "menu_item_uuid",
+        "ref": "menu_items",
+        "nullable": false
+      },
+      {
+        "name": "variant",
+        "column": "variant_id",
+        "uuid_field": "variant_uuid",
+        "ref": "item_variants",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "item_name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "variant_name",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "quantity",
+        "type": "int",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "unit_price",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "addons_total",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "discount_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "tax_rate",
+        "type": "pct",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "tax_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "line_total",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "NEW",
+          "SENT",
+          "PREPARING",
+          "READY",
+          "SERVED",
+          "CANCELLED"
+        ],
+        "default": "NEW"
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "cancel_reason",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "order_item_addons": {
+    "table": "order_item_addons",
+    "global_scope": false,
+    "append_only": false,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "order_item",
+        "column": "order_item_id",
+        "uuid_field": "order_item_uuid",
+        "ref": "order_items",
+        "nullable": false
+      },
+      {
+        "name": "addon",
+        "column": "addon_id",
+        "uuid_field": "addon_uuid",
+        "ref": "item_addons",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "addon_name",
+        "type": "s100",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "quantity",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      },
+      {
+        "name": "unit_price",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "order_tables": {
+    "table": "order_tables",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "order",
+        "column": "order_id",
+        "uuid_field": "order_uuid",
+        "ref": "orders",
+        "nullable": false
+      },
+      {
+        "name": "table",
+        "column": "table_id",
+        "uuid_field": "table_uuid",
+        "ref": "restaurant_tables",
+        "nullable": false
+      }
+    ],
+    "columns": []
+  },
+  "kots": {
+    "table": "kots",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "order",
+        "column": "order_id",
+        "uuid_field": "order_uuid",
+        "ref": "orders",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "kot_no",
+        "type": "s40",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "station",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "NEW",
+          "PREPARING",
+          "READY",
+          "SERVED",
+          "CANCELLED"
+        ],
+        "default": "NEW"
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "printed_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "started_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "ready_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "kot_items": {
+    "table": "kot_items",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "kot",
+        "column": "kot_id",
+        "uuid_field": "kot_uuid",
+        "ref": "kots",
+        "nullable": false
+      },
+      {
+        "name": "order_item",
+        "column": "order_item_id",
+        "uuid_field": "order_item_uuid",
+        "ref": "order_items",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "item_name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "quantity",
+        "type": "int",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "NEW",
+          "PREPARING",
+          "READY",
+          "SERVED",
+          "CANCELLED"
+        ],
+        "default": "NEW"
+      }
+    ]
+  },
+  "payments": {
+    "table": "payments",
+    "global_scope": false,
+    "append_only": true,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "order",
+        "column": "order_id",
+        "uuid_field": "order_uuid",
+        "ref": "orders",
+        "nullable": false
+      },
+      {
+        "name": "received_by",
+        "column": "received_by_id",
+        "uuid_field": "received_by_uuid",
+        "ref": "users",
+        "nullable": true
+      },
+      {
+        "name": "cash_session",
+        "column": "cash_session_id",
+        "uuid_field": "cash_session_uuid",
+        "ref": "cash_sessions",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "method",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "CASH",
+          "CARD",
+          "MOBILE_BANKING",
+          "CREDIT",
+          "OTHER"
+        ]
+      },
+      {
+        "name": "provider",
+        "type": "s40",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "tendered",
+        "type": "money",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "change_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "reference",
+        "type": "s100",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "COMPLETED",
+          "VOIDED"
+        ],
+        "default": "COMPLETED"
+      },
+      {
+        "name": "paid_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "refunds": {
+    "table": "refunds",
+    "global_scope": false,
+    "append_only": true,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "order",
+        "column": "order_id",
+        "uuid_field": "order_uuid",
+        "ref": "orders",
+        "nullable": false
+      },
+      {
+        "name": "payment",
+        "column": "payment_id",
+        "uuid_field": "payment_uuid",
+        "ref": "payments",
+        "nullable": true
+      },
+      {
+        "name": "approved_by",
+        "column": "approved_by_id",
+        "uuid_field": "approved_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "method",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "CASH",
+          "CARD",
+          "MOBILE_BANKING",
+          "CREDIT",
+          "OTHER"
+        ]
+      },
+      {
+        "name": "reason",
+        "type": "text",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "restock",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "refunded_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "coupon_usages": {
+    "table": "coupon_usages",
+    "global_scope": false,
+    "append_only": true,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "coupon",
+        "column": "coupon_id",
+        "uuid_field": "coupon_uuid",
+        "ref": "coupons",
+        "nullable": false
+      },
+      {
+        "name": "order",
+        "column": "order_id",
+        "uuid_field": "order_uuid",
+        "ref": "orders",
+        "nullable": false
+      },
+      {
+        "name": "customer",
+        "column": "customer_id",
+        "uuid_field": "customer_uuid",
+        "ref": "customers",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "discount_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "used_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "loyalty_transactions": {
+    "table": "loyalty_transactions",
+    "global_scope": true,
+    "append_only": true,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "customer",
+        "column": "customer_id",
+        "uuid_field": "customer_uuid",
+        "ref": "customers",
+        "nullable": false
+      },
+      {
+        "name": "order",
+        "column": "order_id",
+        "uuid_field": "order_uuid",
+        "ref": "orders",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "EARN",
+          "REDEEM",
+          "ADJUST"
+        ]
+      },
+      {
+        "name": "points",
+        "type": "int",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "note",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "occurred_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "purchases": {
+    "table": "purchases",
+    "global_scope": false,
+    "append_only": false,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "supplier",
+        "column": "supplier_id",
+        "uuid_field": "supplier_uuid",
+        "ref": "suppliers",
+        "nullable": false
+      },
+      {
+        "name": "created_by",
+        "column": "created_by_id",
+        "uuid_field": "created_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "purchase_no",
+        "type": "s40",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "DRAFT",
+          "ORDERED",
+          "PARTIALLY_RECEIVED",
+          "RECEIVED",
+          "CANCELLED"
+        ],
+        "default": "DRAFT"
+      },
+      {
+        "name": "payment_status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "UNPAID",
+          "PARTIAL",
+          "PAID"
+        ],
+        "default": "UNPAID"
+      },
+      {
+        "name": "ordered_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "expected_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "received_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "subtotal",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "discount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "tax",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "total",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "paid_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "notes",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "purchase_items": {
+    "table": "purchase_items",
+    "global_scope": false,
+    "append_only": false,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "purchase",
+        "column": "purchase_id",
+        "uuid_field": "purchase_uuid",
+        "ref": "purchases",
+        "nullable": false
+      },
+      {
+        "name": "ingredient",
+        "column": "ingredient_id",
+        "uuid_field": "ingredient_uuid",
+        "ref": "ingredients",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "quantity",
+        "type": "qty",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "received_quantity",
+        "type": "qty",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "unit_cost",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "line_total",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "supplier_payments": {
+    "table": "supplier_payments",
+    "global_scope": false,
+    "append_only": true,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "supplier",
+        "column": "supplier_id",
+        "uuid_field": "supplier_uuid",
+        "ref": "suppliers",
+        "nullable": false
+      },
+      {
+        "name": "purchase",
+        "column": "purchase_id",
+        "uuid_field": "purchase_uuid",
+        "ref": "purchases",
+        "nullable": true
+      },
+      {
+        "name": "cash_session",
+        "column": "cash_session_id",
+        "uuid_field": "cash_session_uuid",
+        "ref": "cash_sessions",
+        "nullable": true
+      },
+      {
+        "name": "paid_by",
+        "column": "paid_by_id",
+        "uuid_field": "paid_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "method",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "CASH",
+          "CARD",
+          "MOBILE_BANKING",
+          "BANK",
+          "OTHER"
+        ]
+      },
+      {
+        "name": "reference",
+        "type": "s100",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "paid_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  },
+  "shifts": {
+    "table": "shifts",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s60",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "start_time",
+        "type": "time",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "end_time",
+        "type": "time",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "grace_minutes",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "10"
+      }
+    ]
+  },
+  "employees": {
+    "table": "employees",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "user",
+        "column": "user_id",
+        "uuid_field": "user_uuid",
+        "ref": "users",
+        "nullable": true
+      },
+      {
+        "name": "shift",
+        "column": "shift_id",
+        "uuid_field": "shift_uuid",
+        "ref": "shifts",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "employee_code",
+        "type": "s30",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "full_name",
+        "type": "s150",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "phone",
+        "type": "s30",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "email",
+        "type": "s150",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "designation",
+        "type": "s80",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "hire_date",
+        "type": "date",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "salary_type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "MONTHLY",
+          "DAILY",
+          "HOURLY"
+        ],
+        "default": "MONTHLY"
+      },
+      {
+        "name": "base_salary",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "overtime_rate",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "attendance": {
+    "table": "attendance",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "employee",
+        "column": "employee_id",
+        "uuid_field": "employee_uuid",
+        "ref": "employees",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "work_date",
+        "type": "date",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "check_in",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "check_out",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "PRESENT",
+          "ABSENT",
+          "LATE",
+          "LEAVE",
+          "HALF_DAY"
+        ],
+        "default": "PRESENT"
+      },
+      {
+        "name": "overtime_minutes",
+        "type": "int",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "notes",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "salaries": {
+    "table": "salaries",
+    "global_scope": false,
+    "append_only": false,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "employee",
+        "column": "employee_id",
+        "uuid_field": "employee_uuid",
+        "ref": "employees",
+        "nullable": false
+      }
+    ],
+    "columns": [
+      {
+        "name": "kind",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "SALARY",
+          "ADVANCE"
+        ],
+        "default": "SALARY"
+      },
+      {
+        "name": "period_month",
+        "type": "char7",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "base_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "overtime_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "bonus",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "deductions",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "advance_deduction",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "net_amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false,
+        "default": "0"
+      },
+      {
+        "name": "status",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "DRAFT",
+          "APPROVED",
+          "PAID"
+        ],
+        "default": "DRAFT"
+      },
+      {
+        "name": "paid_at",
+        "type": "dt",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "notes",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "expense_categories": {
+    "table": "expense_categories",
+    "global_scope": false,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "name",
+        "type": "s100",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "description",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "is_active",
+        "type": "bool",
+        "nullable": false,
+        "unique": false,
+        "default": "1"
+      }
+    ]
+  },
+  "expenses": {
+    "table": "expenses",
+    "global_scope": false,
+    "append_only": false,
+    "financial": true,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "category",
+        "column": "category_id",
+        "uuid_field": "category_uuid",
+        "ref": "expense_categories",
+        "nullable": false
+      },
+      {
+        "name": "supplier",
+        "column": "supplier_id",
+        "uuid_field": "supplier_uuid",
+        "ref": "suppliers",
+        "nullable": true
+      },
+      {
+        "name": "cash_session",
+        "column": "cash_session_id",
+        "uuid_field": "cash_session_uuid",
+        "ref": "cash_sessions",
+        "nullable": true
+      },
+      {
+        "name": "created_by",
+        "column": "created_by_id",
+        "uuid_field": "created_by_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "amount",
+        "type": "money",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "expense_date",
+        "type": "date",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "payment_method",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "CASH",
+          "CARD",
+          "MOBILE_BANKING",
+          "BANK",
+          "OTHER"
+        ],
+        "default": "CASH"
+      },
+      {
+        "name": "description",
+        "type": "s255",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "reference",
+        "type": "s100",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "attachment_url",
+        "type": "s500",
+        "nullable": true,
+        "unique": false
+      }
+    ]
+  },
+  "settings": {
+    "table": "settings",
+    "global_scope": true,
+    "append_only": false,
+    "financial": false,
+    "has_branch": true,
+    "fks": [],
+    "columns": [
+      {
+        "name": "setting_key",
+        "type": "s100",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "setting_value",
+        "type": "text",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "value_type",
+        "type": "enum",
+        "nullable": false,
+        "unique": false,
+        "values": [
+          "STRING",
+          "NUMBER",
+          "BOOL",
+          "JSON"
+        ],
+        "default": "STRING"
+      },
+      {
+        "name": "group_name",
+        "type": "s50",
+        "nullable": false,
+        "unique": false,
+        "default": "general"
+      }
+    ]
+  },
+  "audit_logs": {
+    "table": "audit_logs",
+    "global_scope": true,
+    "append_only": true,
+    "financial": false,
+    "has_branch": true,
+    "fks": [
+      {
+        "name": "user",
+        "column": "user_id",
+        "uuid_field": "user_uuid",
+        "ref": "users",
+        "nullable": true
+      }
+    ],
+    "columns": [
+      {
+        "name": "action",
+        "type": "s80",
+        "nullable": false,
+        "unique": false
+      },
+      {
+        "name": "entity_type",
+        "type": "s60",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "entity_uuid",
+        "type": "char36",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "old_values",
+        "type": "json",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "new_values",
+        "type": "json",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "ip_address",
+        "type": "s45",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "user_agent",
+        "type": "s255",
+        "nullable": true,
+        "unique": false
+      },
+      {
+        "name": "occurred_at",
+        "type": "dt",
+        "nullable": false,
+        "unique": false
+      }
+    ]
+  }
+}

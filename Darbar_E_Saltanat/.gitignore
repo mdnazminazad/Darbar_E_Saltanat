@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+uploads/
+*.log
+bin/
+obj/
+.vs/
+*.user
+*.db
+*.db-wal
+*.db-shm
+__pycache__/
+# release packages and publish output stay out of source control
+*.zip
+Darbar_E_Saltanat_Desktop_Setup/

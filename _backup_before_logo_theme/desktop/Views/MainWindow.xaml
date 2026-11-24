@@ -1,0 +1,110 @@
+<Window x:Class="DarbarESaltanat.Desktop.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:DarbarESaltanat.Desktop.ViewModels"
+        xmlns:v="clr-namespace:DarbarESaltanat.Desktop.Views"
+        Title="{Binding RestaurantName}" Style="{StaticResource RoyalWindow}"
+        Icon="/Assets/logo.png"
+        WindowState="Maximized" Closing="OnClosing">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:DashboardViewModel}"><v:DashboardView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}"><v:SettingsView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PosViewModel}"><v:PosView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TablesViewModel}"><v:TablesView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:OrdersViewModel}"><v:OrdersView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MenuManagementViewModel}"><v:MenuManagementView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SyncViewModel}"><v:SyncView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UsersViewModel}"><v:UsersView/></DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RolesViewModel}"><v:RolesView/></DataTemplate>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding NavigateShortcutCommand}" CommandParameter="F1"/>
+        <KeyBinding Key="F2" Command="{Binding NavigateShortcutCommand}" CommandParameter="F2"/>
+        <KeyBinding Key="F3" Command="{Binding NavigateShortcutCommand}" CommandParameter="F3"/>
+        <KeyBinding Key="F4" Command="{Binding NavigateShortcutCommand}" CommandParameter="F4"/>
+        <KeyBinding Key="F5" Command="{Binding NavigateShortcutCommand}" CommandParameter="F5"/>
+        <KeyBinding Key="F7" Command="{Binding NavigateShortcutCommand}" CommandParameter="F7"/>
+        <KeyBinding Key="F8" Command="{Binding NavigateShortcutCommand}" CommandParameter="F8"/>
+        <KeyBinding Key="F9" Command="{Binding NavigateShortcutCommand}" CommandParameter="F9"/>
+        <KeyBinding Key="F9" Modifiers="Shift" Command="{Binding NavigateShortcutCommand}" CommandParameter="Shift+F9"/>
+        <KeyBinding Key="F12" Command="{Binding LockCommand}"/>
+        <KeyBinding Key="L" Modifiers="Control" Command="{Binding LockCommand}"/>
+    </Window.InputBindings>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="240"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+            <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+
+            <!-- Sidebar -->
+            <DockPanel Grid.RowSpan="2" Background="{StaticResource NavyBrush}">
+                <StackPanel DockPanel.Dock="Top" Margin="16,20,16,24" Orientation="Horizontal">
+                    <Border CornerRadius="6" Width="38" Height="38" ClipToBounds="True" Background="#111831" BorderBrush="{StaticResource GoldBrush}" BorderThickness="1" VerticalAlignment="Center">
+                        <Image Source="/Assets/logo.png" Stretch="UniformToFill"/>
+                    </Border>
+                    <TextBlock Text="{Binding RestaurantName}" Foreground="{StaticResource GoldBrush}" FontFamily="Georgia" FontWeight="Bold" FontSize="14.5" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" Width="165" TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" Margin="12,0,12,16">
+                    <TextBlock Text="{Binding UserName}" Foreground="White" FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding Roles}" Foreground="#94A3B8" FontSize="12" TextWrapping="Wrap" Margin="0,0,0,8"/>
+                    <Button Content="Lock (F12)" Style="{StaticResource GoldButton}" Command="{Binding LockCommand}" Margin="0,0,0,6"/>
+                    <Button Content="Sign out" Style="{StaticResource DangerButton}" Command="{Binding LogoutCommand}"/>
+                </StackPanel>
+                <ItemsControl ItemsSource="{Binding Navigation}" Margin="12,0">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource NavButton}"
+                                    Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
+                                <DockPanel LastChildFill="True" Width="190">
+                                    <TextBlock DockPanel.Dock="Right" Text="{Binding Shortcut}" Foreground="#64748B" FontSize="12"/>
+                                    <TextBlock Text="{Binding Title}"/>
+                                </DockPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </DockPanel>
+
+            <!-- Content (always rendered from local SQLite) -->
+            <ContentControl Grid.Column="1" Content="{Binding CurrentPage}" Margin="20,16,20,8"/>
+
+            <!-- Status bar -->
+            <Border Grid.Column="1" Grid.Row="1" Background="White" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="16,8">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Text="{Binding ShortcutHelp}" Foreground="{StaticResource MutedTextBrush}" FontSize="12" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Ellipse Width="10" Height="10" Margin="0,0,8,0">
+                            <Ellipse.Style><Style TargetType="Ellipse"><Setter Property="Fill" Value="{StaticResource WarningBrush}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Sync.Health}" Value="Synced"><Setter Property="Fill" Value="{StaticResource SuccessBrush}"/></DataTrigger>
+                                    <DataTrigger Binding="{Binding Sync.Health}" Value="Failed"><Setter Property="Fill" Value="{StaticResource MaroonBrush}"/></DataTrigger>
+                                    <DataTrigger Binding="{Binding Sync.Health}" Value="Conflicts"><Setter Property="Fill" Value="{StaticResource MaroonBrush}"/></DataTrigger>
+                                </Style.Triggers></Style></Ellipse.Style>
+                        </Ellipse>
+                        <TextBlock Text="{Binding Sync.Label}" FontSize="13" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                        <TextBlock Text="{Binding DeviceId, StringFormat='Dev: {0}'}" Foreground="#64748B" FontSize="12" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding BranchId, StringFormat='Branch: {0}'}" Foreground="#64748B" FontSize="12" Margin="0,0,16,0" VerticalAlignment="Center"/>
+
+                        <Button Content="Sync Now" Style="{StaticResource NavButton}" Command="{Binding SyncNowCommand}" MinHeight="28" Padding="8,2" FontSize="11" Margin="0,0,6,0"/>
+                        <Button Content="Retry Failed" Style="{StaticResource NavButton}" Command="{Binding RetryFailedSyncCommand}" MinHeight="28" Padding="8,2" FontSize="11" Margin="0,0,6,0"/>
+                        <Button Content="Sync Center" Style="{StaticResource GoldButton}" Command="{Binding OpenSyncCenterCommand}" MinHeight="28" Padding="8,2" FontSize="11"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </Grid>
+
+        <!-- Lock overlay -->
+        <Grid Background="#E60B1020" Visibility="{Binding IsLocked, Converter={StaticResource BoolToVis}}">
+            <Border Width="380" Background="White" CornerRadius="16" Padding="28" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel>
+                    <TextBlock Text="Terminal locked" Style="{StaticResource Heading}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding UserName}" HorizontalAlignment="Center" Foreground="{StaticResource MutedTextBrush}" Margin="0,4,0,12"/>
+                    <TextBlock Text="Password or PIN" Style="{StaticResource FieldLabel}"/>
+                    <PasswordBox x:Name="UnlockBox" PasswordChanged="OnUnlockChanged" KeyDown="OnUnlockKeyDown"/>
+                    <TextBlock Text="{Binding UnlockError}" Foreground="{StaticResource MaroonBrush}" TextWrapping="Wrap" Margin="0,6,0,0"/>
+                    <Button Content="Unlock" Style="{StaticResource PrimaryButton}" Margin="0,14,0,0" Click="OnUnlockClick"/>
+                    <Button Content="Switch user" Style="{StaticResource NavButton}" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Center" Command="{Binding LogoutCommand}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.10" />
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DarbarESaltanat.Application\DarbarESaltanat.Application.csproj" />
+  </ItemGroup>
+  <!-- The canonical schema/seed live in /database and are embedded so a fresh install works offline. -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\database\sqlite-schema.sql" LogicalName="sqlite-schema.sql" />
+    <EmbeddedResource Include="..\..\database\sqlite-seed.sql" LogicalName="sqlite-seed.sql" />
+  </ItemGroup>
+  <ItemGroup><InternalsVisibleTo Include="DarbarESaltanat.Tests" /></ItemGroup>
+</Project>

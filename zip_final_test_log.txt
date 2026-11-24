@@ -1,0 +1,13 @@
+  Determining projects to restore...
+  Restored C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Domain\DarbarESaltanat.Domain.csproj (in 134 ms).
+  Restored C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Application\DarbarESaltanat.Application.csproj (in 316 ms).
+  Restored C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Infrastructure\DarbarESaltanat.Infrastructure.csproj (in 325 ms).
+  1 of 4 projects are up-to-date for restore.
+  DarbarESaltanat.Domain -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Domain\bin\Release\net8.0\DarbarESaltanat.Domain.dll
+  DarbarESaltanat.Application -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Application\bin\Release\net8.0\DarbarESaltanat.Application.dll
+  DarbarESaltanat.Infrastructure -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Infrastructure\bin\Release\net8.0\DarbarESaltanat.Infrastructure.dll
+  DarbarESaltanat.Tests -> C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Tests\bin\Release\net8.0\DarbarESaltanat.Tests.dll
+Test run for C:\Users\RCL\Downloads\Darbar_E_Saltanat_phase3\Darbar_E_Saltanat\desktop\DarbarESaltanat.Tests\bin\Release\net8.0\DarbarESaltanat.Tests.dll (.NETCoreApp,Version=v8.0)
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:    73, Skipped:     0, Total:    73, Duration: 15 s - DarbarESaltanat.Tests.dll (net8.0)

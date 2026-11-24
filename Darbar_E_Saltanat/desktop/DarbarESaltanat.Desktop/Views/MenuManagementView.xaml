@@ -1,0 +1,148 @@
+<UserControl x:Class="DarbarESaltanat.Desktop.Views.MenuManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+    <UserControl.Resources>
+        <Style x:Key="Small" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="MinHeight" Value="38"/><Setter Property="Padding" Value="10,4"/><Setter Property="FontSize" Value="13"/><Setter Property="Margin" Value="0,0,6,6"/>
+        </Style>
+    </UserControl.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="Import CSV" Style="{StaticResource Small}" Command="{Binding ImportCommand}"/>
+                <Button Content="Export CSV" Style="{StaticResource Small}" Command="{Binding ExportCommand}"/>
+            </StackPanel>
+            <TextBlock Text="Menu" Style="{StaticResource Heading}"/>
+        </DockPanel>
+        <Border DockPanel.Dock="Top" CornerRadius="8" Padding="10" Margin="0,0,0,8" Visibility="{Binding Message, Converter={StaticResource NullToVis}}">
+            <Border.Style><Style TargetType="Border"><Setter Property="Background" Value="{DynamicResource OkBannerBrush}"/>
+                <Style.Triggers><DataTrigger Binding="{Binding IsError}" Value="True"><Setter Property="Background" Value="{DynamicResource ErrorBannerBrush}"/></DataTrigger></Style.Triggers></Style></Border.Style>
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap"/>
+        </Border>
+        <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="220"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="460"/></Grid.ColumnDefinitions>
+
+            <!-- Categories -->
+            <Border Style="{StaticResource Card}" Padding="10">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Categories" FontWeight="Bold" Margin="0,0,0,6"/>
+                    <WrapPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
+                        <Button Content="+ New" Style="{StaticResource Small}" Command="{Binding NewCategoryCommand}"/>
+                        <Button Content="Edit" Style="{StaticResource Small}" Command="{Binding EditCategoryCommand}"/>
+                        <Button Content="Delete" Style="{StaticResource Small}" Background="{StaticResource MaroonBrush}" Foreground="White" Command="{Binding DeleteCategoryCommand}"/>
+                    </WrapPanel>
+                    <ListBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="0,4">
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding KitchenStation, TargetNullValue='Main Kitchen'}" FontSize="11" Foreground="{DynamicResource MutedTextBrush}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </Border>
+
+            <!-- Items -->
+            <Border Grid.Column="2" Style="{StaticResource Card}" Padding="10">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Margin="0,0,0,6">
+                        <Button DockPanel.Dock="Right" Content="+ New item" Style="{StaticResource GoldButton}" MinHeight="38" Command="{Binding NewItemCommand}"/>
+                        <TextBlock Text="Items" FontWeight="Bold" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" IsReadOnly="True"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowHeight="38" SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="SKU" Binding="{Binding Sku}" Width="90"/>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="90"/>
+                            <DataGridTemplateColumn Header="Status" Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding Status}" ToolTip="Toggle available / out of stock" Style="{StaticResource NavButton}" Foreground="{DynamicResource HeadingBrush}" MinHeight="30" Padding="4,0"
+                                                Command="{Binding DataContext.ToggleAvailabilityCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <!-- Item editor -->
+            <Border Grid.Column="4" Style="{StaticResource Card}" Padding="14">
+                <Grid>
+                    <TextBlock Text="Select an item or press + New item." Foreground="{DynamicResource MutedTextBrush}" Visibility="{Binding HasItem, Converter={StaticResource InverseBoolToVis}}"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="{Binding HasItem, Converter={StaticResource BoolToVis}}">
+                        <StackPanel>
+                            <TextBlock Text="Category" Style="{StaticResource FieldLabel}"/>
+                            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding FormCategory}" DisplayMemberPath="Name" MinHeight="40"/>
+                            <TextBlock Text="Name (English, printed on receipts)" Style="{StaticResource FieldLabel}"/>
+                            <TextBox Text="{Binding FormName, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="Name (বাংলা, optional)" Style="{StaticResource FieldLabel}"/>
+                            <TextBox Text="{Binding FormNameBn, UpdateSourceTrigger=PropertyChanged}"/>
+                            <UniformGrid Columns="2">
+                                <StackPanel Margin="0,0,6,0"><TextBlock Text="Selling price (৳)" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding FormPrice, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                <StackPanel><TextBlock Text="Cost price (৳)" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding FormCost, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                <StackPanel Margin="0,0,6,0"><TextBlock Text="SKU" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding FormSku, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                <StackPanel><TextBlock Text="Barcode" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding FormBarcode, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                <StackPanel Margin="0,0,6,0"><TextBlock Text="VAT % (0 = restaurant rate)" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding FormTaxRate, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                <StackPanel><TextBlock Text="Prep time (min)" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding FormPrepTime, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                                <StackPanel Margin="0,0,6,0"><TextBlock Text="Sort order" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding FormSortOrder, UpdateSourceTrigger=PropertyChanged}"/></StackPanel>
+                            </UniformGrid>
+                            <TextBlock Text="Description" Style="{StaticResource FieldLabel}"/>
+                            <TextBox Text="{Binding FormDescription, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="60"/>
+                            <CheckBox Content="Available (uncheck = out of stock)" IsChecked="{Binding FormAvailable}" Margin="0,10,0,0"/>
+                            <CheckBox Content="Active (shown on POS and website)" IsChecked="{Binding FormActive}" Margin="0,6,0,0"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                <Button Content="Save item" Style="{StaticResource GoldButton}" Margin="0,0,8,0" Command="{Binding SaveItemCommand}"/>
+                                <Button Content="Delete" Style="{StaticResource DangerButton}" Command="{Binding DeleteItemCommand}"/>
+                            </StackPanel>
+
+                            <Separator Margin="0,16"/>
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right" Content="+ Variant" Style="{StaticResource Small}" Command="{Binding AddVariantCommand}"/>
+                                <TextBlock Text="Sizes / variants (e.g. Half, Full)" FontWeight="Bold" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            <ItemsControl ItemsSource="{Binding Variants}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,3">
+                                            <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="90"/><ColumnDefinition Width="90"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" ToolTip="Name" Margin="0,0,4,0"/>
+                                            <TextBox Grid.Column="1" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" ToolTip="Price" Margin="0,0,4,0"/>
+                                            <TextBox Grid.Column="2" Text="{Binding CostPrice, UpdateSourceTrigger=PropertyChanged}" ToolTip="Cost" Margin="0,0,4,0"/>
+                                            <CheckBox Grid.Column="3" Content="Default" IsChecked="{Binding IsDefault}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                            <Button Grid.Column="4" Content="✕" Style="{StaticResource NavButton}" Foreground="{DynamicResource DangerTextBrush}" MinHeight="32" Padding="6,0"
+                                                    Command="{Binding DataContext.RemoveVariantCommand, ElementName=Root}" CommandParameter="{Binding}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Button Content="Save variants" Style="{StaticResource Small}" HorizontalAlignment="Left" Margin="0,6,0,0" Command="{Binding SaveVariantsCommand}"/>
+
+                            <Separator Margin="0,16"/>
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right" Content="+ Add-on" Style="{StaticResource Small}" Command="{Binding NewAddonCommand}"/>
+                                <TextBlock Text="Add-ons allowed on this item (max qty)" FontWeight="Bold" VerticalAlignment="Center"/>
+                            </DockPanel>
+                            <ItemsControl ItemsSource="{Binding Addons}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Margin="0,3">
+                                            <TextBox DockPanel.Dock="Right" Text="{Binding MaxQty, UpdateSourceTrigger=PropertyChanged}" Width="56" MinHeight="34" IsEnabled="{Binding IsLinked}"/>
+                                            <CheckBox Content="{Binding Label}" IsChecked="{Binding IsLinked}" VerticalAlignment="Center"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Button Content="Save add-ons" Style="{StaticResource Small}" HorizontalAlignment="Left" Margin="0,6,0,0" Command="{Binding SaveAddonLinksCommand}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

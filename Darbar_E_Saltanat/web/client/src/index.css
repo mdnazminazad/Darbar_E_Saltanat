@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-gold-400; }
+  .btn-primary { @apply btn bg-royal-900 text-gold-300 hover:bg-royal-800 dark:bg-royal-700 dark:hover:bg-royal-600; }
+  .btn-gold { @apply btn bg-gold-500 text-royal-950 hover:bg-gold-400; }
+  .btn-danger { @apply btn bg-maroon-500 text-white hover:bg-maroon-600; }
+  .btn-ghost { @apply btn bg-white text-slate-700 ring-1 ring-slate-300 hover:bg-slate-50 dark:bg-royal-800 dark:text-slate-200 dark:ring-royal-700 dark:hover:bg-royal-700; }
+  .input { @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-300 dark:border-royal-700 dark:bg-royal-950 dark:text-slate-100 dark:focus:border-gold-500 dark:focus:ring-gold-500/40; }
+  .label { @apply mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300; }
+  .card { @apply rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-200 dark:bg-royal-900 dark:ring-royal-700; }
+  .th { @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400; }
+  .td { @apply px-4 py-3 text-sm text-slate-700 dark:text-slate-300; }
+  .badge { @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium; }
+}
+
+/* ---- Dark mode ----------------------------------------------------------------------------------
+   Pages were written with light-only utilities (bg-white, text-slate-700, border-slate-200 …). Instead of
+   touching every page, this layer re-maps those utilities when <html class="dark">. New code should prefer
+   Tailwind's own `dark:` variants (see the component classes above). Generated from a table — keep it tidy. */
+html.dark body, html.dark body.bg-slate-100 { background-color: #0b1020; color: #e2e8f5; }
+html.dark ::placeholder { color: #64748b; opacity: 1; }
+.dark .bg-white{background-color:#111831}
+.dark .bg-white\/80{background-color:rgba(17,24,49,.8)}
+.dark .bg-white\/95{background-color:rgba(17,24,49,.92)}
+.dark .bg-slate-50{background-color:#161f3d}
+.dark .bg-slate-50\/50{background-color:rgba(22,31,61,.5)}
+.dark .bg-slate-50\/70{background-color:rgba(22,31,61,.7)}
+.dark .bg-slate-100{background-color:#1a2342}
+.dark .bg-slate-200{background-color:#26315a}
+.dark .bg-amber-50{background-color:rgba(245,158,11,.12)}
+.dark .bg-amber-50\/50{background-color:rgba(245,158,11,.08)}
+.dark .bg-amber-100{background-color:rgba(245,158,11,.2)}
+.dark .bg-emerald-50{background-color:rgba(16,185,129,.12)}
+.dark .bg-emerald-100{background-color:rgba(16,185,129,.2)}
+.dark .bg-rose-50{background-color:rgba(244,63,94,.12)}
+.dark .bg-rose-100{background-color:rgba(244,63,94,.2)}
+.dark .bg-blue-100{background-color:rgba(59,130,246,.22)}
+.dark .bg-purple-50{background-color:rgba(168,85,247,.12)}
+.dark .bg-purple-100{background-color:rgba(168,85,247,.22)}
+.dark .bg-sky-100{background-color:rgba(14,165,233,.22)}
+.dark .hover\:bg-slate-50:hover{background-color:#1a2342}
+.dark .hover\:bg-slate-50\/60:hover{background-color:rgba(26,35,66,.6)}
+.dark .hover\:bg-slate-50\/80:hover{background-color:rgba(26,35,66,.8)}
+.dark .hover\:bg-slate-100:hover{background-color:#26315a}
+.dark .hover\:bg-slate-100\/70:hover{background-color:rgba(38,49,90,.7)}
+.dark .hover\:bg-slate-200:hover{background-color:#34427a}
+.dark .hover\:bg-rose-50:hover{background-color:rgba(244,63,94,.14)}
+.dark .text-slate-500{color:#9aa7c7}
+.dark .text-slate-600{color:#b4bfd8}
+.dark .text-slate-700{color:#cbd5e8}
+.dark .text-slate-800{color:#e2e8f5}
+.dark .text-slate-900{color:#f1f5f9}
+.dark .text-emerald-600{color:#34d399}
+.dark .text-emerald-700{color:#6ee7b7}
+.dark .text-emerald-800{color:#6ee7b7}
+.dark .text-emerald-900{color:#a7f3d0}
+.dark .text-amber-700{color:#fcd34d}
+.dark .text-amber-800{color:#fcd34d}
+.dark .text-rose-600{color:#fda4af}
+.dark .text-rose-700{color:#fda4af}
+.dark .text-rose-800{color:#fecdd3}
+.dark .text-blue-800{color:#93c5fd}
+.dark .text-blue-900{color:#bfdbfe}
+.dark .text-purple-800{color:#d8b4fe}
+.dark .text-purple-900{color:#e9d5ff}
+.dark .text-sky-800{color:#7dd3fc}
+.dark .text-maroon-600{color:#fb7185}
+.dark .text-maroon-700{color:#fda4af}
+.dark .text-gold-600{color:#e5c35c}
+.dark .text-royal-700{color:#cbd5e8}
+.dark .text-royal-800{color:#e2e8f5}
+.dark .hover\:text-slate-800:hover{color:#f1f5f9}
+.dark .hover\:text-maroon-800:hover{color:#fecdd3}
+.dark .hover\:text-royal-900:hover{color:#ffffff}
+.dark .text-royal-900:not(.bg-gold-500){color:#f1f5f9}
+.dark .text-royal-950:not(.bg-gold-500){color:#f1f5f9}
+.dark .border-slate-100{border-color:#1a2342}
+.dark .border-slate-200{border-color:#26315a}
+.dark .border-slate-300{border-color:#34427a}
+.dark .border-amber-200{border-color:rgba(245,158,11,.35)}
+.dark .border-amber-300{border-color:rgba(245,158,11,.4)}
+.dark .border-emerald-200{border-color:rgba(16,185,129,.35)}
+.dark .border-emerald-300{border-color:rgba(16,185,129,.4)}
+.dark .border-rose-200{border-color:rgba(244,63,94,.35)}
+.dark .border-rose-300{border-color:rgba(244,63,94,.4)}
+.dark .border-purple-300{border-color:rgba(168,85,247,.4)}
+.dark .divide-slate-100>:not([hidden])~:not([hidden]){border-color:#1a2342}
+.dark .divide-slate-200>:not([hidden])~:not([hidden]){border-color:#26315a}
+.dark .ring-slate-200{--tw-ring-color:#26315a}
+.dark .shadow-sm, .dark .shadow{--tw-shadow-color:rgba(0,0,0,.5)}
+/* keep printouts readable even when the screen is in dark mode */
+@media print { html.dark body { background: #fff; color: #000; } }
